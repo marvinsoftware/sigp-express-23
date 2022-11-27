@@ -1,6 +1,4 @@
-
 const router = require('express').Router();
-
 const { Router } = require('express');
 const { body } = require('express-validator');
 const { Customer } = require('../../db');
@@ -21,20 +19,15 @@ router.get('/:customerId', async (req, res) => {
     res.json( customers);
 });
 
-
-/*
-router.get('/:id', function(req, res) {
-//res.send('Customer' + req.params.id);   
-res.json(req.params.id);
-  });
-*/
  
-
 router.post('/',  [
-    check('customername','El nombre de Cliente es obligatorio').not().isEmpty(),
-    check('adress','El Adress es obligatorio').not().isEmpty(),
+    check('nit','El Nit del Cliente es obligatorio').not().isEmpty(),
+    check('verification_digit','El Dígito de Verificación es obligatorio').not().isEmpty(),
+    check('customer_name','El Nombre de Cliente es obligatorio').not().isEmpty(),
+    check('address','La Address es obligatoria').not().isEmpty(),
     check('phone','El Phone es obligatorio').not().isEmpty(),
-    check('email','Email Incorrecto').isEmail()
+    check('email','El Email es Incorrecto').isEmail(),
+    check('contact_name','El Nombre de Contacto es obligatorio').not().isEmpty()
 ], async (req, res) => {
 
     const errors = validationResult(req)
@@ -51,7 +44,7 @@ router.put('/:customerId', async (req, res) => {
     const customer = await Customer.update(req.body, {
         where : { id: req.params.customerId}   
        });
-    res.json( {success: 'Se ha modificado'} );
+    res.json( {success: 'Updated Customer'} );
 });
 
 
@@ -60,7 +53,7 @@ router.delete('/:customerId', async (req, res) => {
         where : { id: req.params.customerId}   
        });  
 
-    res.json( {success: 'Customer deleting'} );
+    res.json( {success: 'Deleted Customer'} );
 });
 
 

@@ -6,10 +6,13 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             autoIncrement:true
         },
-        customername: type.STRING(60),
-        adress: type.STRING(60),
-        phone: type.STRING,
-        email: type.STRING(20)
+        nit: type.STRING(10),
+        verification_digit: type.STRING(1),
+        customer_name: type.STRING(60),
+        address: type.STRING(60),
+        phone: type.STRING(10),
+        email: type.STRING(50),
+        contact_name: type.STRING(60)
     })
 
 

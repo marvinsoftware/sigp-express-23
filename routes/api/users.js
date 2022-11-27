@@ -6,9 +6,13 @@ const moment = require('moment');
 const jwt = require('jwt-simple');
 
 router.post('/register',  [
-    check('username','El nombre de usuario es obligatorio').not().isEmpty(),
+    check('user_name','El nombre de usuario es obligatorio').not().isEmpty(),
     check('password','El Password es obligatorio').not().isEmpty(),
+    check('password','Mínimo 5 Caracteres').isLength({ min: 5}),
+    check('password','Máximo 15 Caracteres').isLength({ max: 15}),
+    //check('password','5 to 15 characters required').isLength(5 , 15),
     check('email','El Email debe estar correcto').isEmail()
+
 ], async (req, res) => {
 
     const errors = validationResult(req)
@@ -32,13 +36,10 @@ router.post('/login', async (req, res)=>{
     
               }
 
-
     }else{
         res.json({ error: 'Error en Usuario y/o Contraseña'});
     }
-   
-   
-
+    
 });
 
 
@@ -46,7 +47,7 @@ const createToken = (user) => {
     const payload = {
         usuarioId: user.id,
         createdAt: moment().unix(),
-        expiredAt: moment().add(5, 'minutes').unix()
+        expiredAt: moment().add(60, 'minutes').unix()
     }
     return jwt.encode(payload, 'frase secreta');
 }
