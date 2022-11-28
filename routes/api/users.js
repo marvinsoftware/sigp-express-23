@@ -19,10 +19,18 @@ router.post('/register',  [
     if (!errors.isEmpty()) {
         return res.status(422).json({errores: errors.array()})
     }  
+    
+    const email = await User.findOne({where: {email: req.body.email}});
+    if (!email) {
+        req.body.password = bcrypt.hashSync(req.body.password, 10 )
+        const user = await User.create(req.body);
+        res.json(user);
+    }
+    else
+    {
+        res.json({ error: 'Email ya existe en la bd'});
+    }
 
-    req.body.password = bcrypt.hashSync(req.body.password, 10 )
-    const user = await User.create(req.body);
-    res.json(user);
 });
 
 

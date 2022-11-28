@@ -6,11 +6,11 @@ module.exports = (sequelize, type) => {
             primaryKey: true,
             autoIncrement:true
         },
-        nit: type.STRING(10),
+        nit: type.INTEGER,
         verification_digit: type.STRING(1),
         customer_name: type.STRING(60),
         address: type.STRING(60),
-        phone: type.STRING(10),
+        phone: type.INTEGER,
         email: type.STRING(50),
         contact_name: type.STRING(60)
     })
