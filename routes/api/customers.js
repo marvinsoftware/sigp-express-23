@@ -81,8 +81,10 @@ router.put('/:customerId', async (req, res) => {
 });
 
 
+
 router.delete('/:customerId',async (req, res) => {   
 const identification = req.params.customerId;    
+
 if(identification)
 {
     const Id= await Customer.findOne({where: {id: req.params.customerId}});
@@ -101,9 +103,6 @@ if(identification)
 }else 
 {
 res.status(404).send("Sorry, we cannot find that!"); 
-//console.log("Trabajando");
- //res.json({ error: 'Id no puede ser vacio'});
- //res.json( {success: 'Id no puede ser vacio'} );
 }
 
 });
